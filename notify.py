@@ -34,6 +34,7 @@ class Notify(object):
 
     if os.environ.get('SCKEY', '') != '':
         SCKEY = os.environ['SCKEY']
+        print("获取到SCKEY!!!")
 
     # ============================== Cool Push ================================
     # 此处填你申请的SKEY(详见文档: https://cp.xuthus.cc/)
@@ -129,6 +130,7 @@ class Notify(object):
     QMSG_KEY=''
     if os.environ.get('QMSG_KEY', '') != '':
         QMSG_KEY = os.environ['QMSG_KEY']
+        print("获取到QMSG_KEY!!!")
     def serverChan(self, text, status, desp):
         if Notify.SCKEY != '':
             url = 'https://sc.ftqq.com/{}.send'.format(Notify.SCKEY)
@@ -317,8 +319,8 @@ class Notify(object):
             log.info('您未配置pushplus推送所需的PUSH_PLUS_TOKEN,取消pushplus推送')
             pass
     def qMsg(self,text,status,desp):
-        if Notify.QMSG_KEY != '':
-            url = 'https://qmsg.zendee.cn/send/'.format(Notify.QMSG_KEY)
+        if Notify.SCKEY != '':
+            url = 'https://qmsg.zendee.cn/send/'.format(Notify.SCKEY)
             data = {'text': '{} {}'.format(text, status), 'desp': desp}
             try:
                 response = self.to_python(requests.post(url, data=data).text)
