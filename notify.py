@@ -318,7 +318,7 @@ class Notify(object):
         else:
             log.info('您未配置pushplus推送所需的PUSH_PLUS_TOKEN,取消pushplus推送')
             pass
-    def qMsg(text,status,desp):
+    def qMsg(self,text,status,desp):
         if Notify.SCKEY != '': 
             url = 'https://qmsg.zendee.cn/send/'.format(Notify.SCKEY)
             push_data = {
