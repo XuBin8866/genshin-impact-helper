@@ -318,7 +318,7 @@ class Notify(object):
         else:
             log.info('您未配置pushplus推送所需的PUSH_PLUS_TOKEN,取消pushplus推送')
             pass
-    def qMsg(self,text,status,desp):
+    def qMsg(text,status,desp):
         if Notify.SCKEY != '': 
             url = 'https://qmsg.zendee.cn/send/'.format(Notify.SCKEY)
             push_data = {
@@ -326,18 +326,9 @@ class Notify(object):
                 }
             print(push_data)
             try:
-                response = self.to_python(requests.post(url, data=push_data).text)
+                requests.post(url, data=push_data)
             except Exception as e:
-                log.error(e)
-                raise HTTPError
-            else:
-                if response['errno'] == 0:
-                    log.info('QMsg酱推送成功')
-                elif response['errno'] == 1024:
-                    # SCKEY错误或一分钟内发送相同内容
-                    log.error('QMsg酱推送失败:\n{}'.format(response['errmsg']))
-                else:
-                    log.error('QMsg酱推送失败:\n{}'.format(response))
+                log.error('QMsg酱推送失败!!!',e)
         else:
             log.info('您未配置QMsg酱推送所需的QMSG_KEY,取消QMsg酱推送')
             pass
