@@ -125,7 +125,10 @@ class Notify(object):
         PUSH_PLUS_TOKEN = os.environ['PUSH_PLUS_TOKEN']
     if os.environ.get('PUSH_PLUS_USER', '') != '':
         PUSH_PLUS_USER = os.environ['PUSH_PLUS_USER']
-
+    # ===========================qmsg=============================================
+    QMSG_KEY=''
+    if os.environ.get('QMSG_KEY', '') != '':
+        QMSG_KEY = os.environ['QMSG_KEY']
     def serverChan(self, text, status, desp):
         if Notify.SCKEY != '':
             url = 'https://sc.ftqq.com/{}.send'.format(Notify.SCKEY)
@@ -313,7 +316,26 @@ class Notify(object):
         else:
             log.info('您未配置pushplus推送所需的PUSH_PLUS_TOKEN,取消pushplus推送')
             pass
-
+    def qMsg(self,text,status,desp):
+        if Notify.QMSG_KEY != '':
+            url = 'https://qmsg.zendee.cn/send/'.format(Notify.QMSG_KEY)
+            data = {'text': '{} {}'.format(text, status), 'desp': desp}
+            try:
+                response = self.to_python(requests.post(url, data=data).text)
+            except Exception as e:
+                log.error(e)
+                raise HTTPError
+            else:
+                if response['errno'] == 0:
+                    log.info('QMsg酱推送成功')
+                elif response['errno'] == 1024:
+                    # SCKEY错误或一分钟内发送相同内容
+                    log.error('QMsg酱推送失败:\n{}'.format(response['errmsg']))
+                else:
+                    log.error('QMsg酱推送失败:\n{}'.format(response))
+        else:
+            log.info('您未配置QMsg酱推送所需的QMSG_KEY,取消QMsg酱推送')
+            pass
     def send(self, **kwargs):
         app = '原神签到小助手'
         status = kwargs.get('status', '')
@@ -332,6 +354,7 @@ class Notify(object):
         self.wwBot(app, status, msg)
         self.iGot(app, status, msg)
         self.pushPlus(app, status, msg)
+        self.qMsg(app,status,msg)
 
 
 if __name__ == '__main__':
