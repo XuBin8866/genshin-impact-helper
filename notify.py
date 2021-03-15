@@ -327,6 +327,7 @@ class Notify(object):
             print(push_data)
             try:
                 requests.post(url, data=push_data)
+                log.error('QMsg酱推送成功!!!'   )
             except Exception as e:
                 log.error('QMsg酱推送失败!!!',e)
         else:
