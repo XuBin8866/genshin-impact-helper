@@ -322,8 +322,11 @@ class Notify(object):
         if Notify.SCKEY != '': 
             print("SCKEY:"+Notify.SCKEY)
             push_url = "https://qmsg.zendee.cn/send/" + Notify.SCKEY
+            data='{} {}\n {}'.format(text, status,desp)
+            print("url："+push_url)
+            print("data: "+data)
             push_data = {
-                'msg': '{} {}\n {}'.format(text, status,desp)
+                'msg': data
                 }
             try:
                 requests.post(push_url, data=push_data)
