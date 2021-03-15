@@ -319,11 +319,14 @@ class Notify(object):
             log.info('您未配置pushplus推送所需的PUSH_PLUS_TOKEN,取消pushplus推送')
             pass
     def qMsg(self,text,status,desp):
-        if Notify.SCKEY != '':
+        if Notify.SCKEY != '': 
             url = 'https://qmsg.zendee.cn/send/'.format(Notify.SCKEY)
-            data = {'text': '{} {}'.format(text, status), 'desp': desp}
+            push_data = {
+                'msg': '{} {}\n {}'.format(text, status,desp)
+                }
+            print(push_data)
             try:
-                response = self.to_python(requests.post(url, data=data).text)
+                response = self.to_python(requests.post(url, data=push_data).text)
             except Exception as e:
                 log.error(e)
                 raise HTTPError
