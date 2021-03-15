@@ -345,16 +345,16 @@ class Notify(object):
             msg = '\n\n'.join(msg)
         log.info(f'签到结果: {status}\n\n{msg}')
         log.info('准备推送通知...')
-
-        self.serverChan(app, status, msg)
-        self.coolPush(app, status, msg)
-        self.bark(app, status, msg)
-        self.tgBot(app, status, msg)
-        self.ddBot(app, status, msg)
-        self.wwBot(app, status, msg)
-        self.iGot(app, status, msg)
-        self.pushPlus(app, status, msg)
         self.qMsg(app,status,msg)
+        # self.serverChan(app, status, msg)
+        # self.coolPush(app, status, msg)
+        # self.bark(app, status, msg)
+        # self.tgBot(app, status, msg)
+        # self.ddBot(app, status, msg)
+        # self.wwBot(app, status, msg)
+        # self.iGot(app, status, msg)
+        # self.pushPlus(app, status, msg)
+        
 
 
 if __name__ == '__main__':
