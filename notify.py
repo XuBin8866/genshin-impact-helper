@@ -320,14 +320,13 @@ class Notify(object):
             pass
     def qMsg(self,text,status,desp):
         if Notify.SCKEY != '': 
-            print(Notify.SCKEY)
+            print("SCKEY:"+Notify.SCKEY)
             push_url = "https://qmsg.zendee.cn/send/" + Notify.SCKEY
             push_data = {
                 'msg': '{} {}\n {}'.format(text, status,desp)
                 }
-            print(push_data)
             try:
-                requests.post(url, data=push_data)
+                requests.post(push_url, data=push_data)
                 log.info('QMsg酱推送成功!!!')
             except Exception as e:
                 log.error('QMsg酱推送失败!!!',e)
