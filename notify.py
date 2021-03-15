@@ -320,7 +320,8 @@ class Notify(object):
             pass
     def qMsg(self,text,status,desp):
         if Notify.SCKEY != '': 
-            url = 'https://qmsg.zendee.cn/send/'.format(Notify.SCKEY)
+            print(Notify.SCKEY)
+            push_url = "https://qmsg.zendee.cn/send/" + Notify.SCKEY
             push_data = {
                 'msg': '{} {}\n {}'.format(text, status,desp)
                 }
