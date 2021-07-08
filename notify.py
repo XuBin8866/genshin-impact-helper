@@ -355,5 +355,5 @@ class Notify(object):
 
 
 if __name__ == '__main__':
-    Notify().send(app='原神签到小助手', status='签到状态', msg='内容详情')
+    #Notify().send(app='原神签到小助手', status='签到状态', msg='内容详情')
 
